@@ -1,0 +1,55 @@
+
+<nav class="navbar navbar-default navbar-fixed-top navbar-Mohsen-gray">
+    <div class="container">
+        <div class="navbar-header">
+            <p class="navbar-text pull-left">
+                <a ng-href="#/user/{{model.userId}}/website" class="navbar-link margin-left-half">
+                    <span class="glyphicon glyphicon-chevron-left">
+                    </span>
+                </a>
+            </p>
+            <a class="navbar-brand margin-left-one">
+                Pages
+            </a>
+            <p class="navbar-text pull-right">
+                <a ng-href="#/user/{{model.userId}}/website/{{model.webId}}/page/new" class="navbar-link">
+                    <span class="glyphicon glyphicon-plus">
+                    </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>
+
+
+<div class="container padding-top-three">
+    <div class="row" ng-repeat="page in model.pages">
+        <div class="col-xs-10">
+            <a ng-href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{page._id}}/widget" >
+                <p class="margin-left-one" >{{page.name}}</p>
+            </a>
+        </div>
+        <div class="col-xs-2">
+            <a href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{page._id}}" >
+                <span class="glyphicon glyphicon-cog"></span>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<nav class="navbar navbar-default navbar-fixed-bottom navbar-Mohsen-gray">
+    <div class="navbar-header">
+        <div class="container">
+            <p class="navbar-text pull-right" >
+                <a ng-href="#/user/{{model.userId}}" class="navbar-link">
+                        <span class="glyphicon glyphicon-user">
+                        </span>
+                </a>
+            </p>
+        </div>
+    </div>
+</nav>

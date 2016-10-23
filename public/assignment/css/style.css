@@ -1,0 +1,140 @@
+input.form-control {
+    margin-bottom: 5px;
+}
+
+.navbar-header {
+    width:100%;
+}
+
+
+.navbar-default .navbar-brand {
+    color: white;
+}
+
+.navbar-default {
+    background-color: #4682B4;
+}
+.navbar-Mohsen-gray{
+    background-color:black;
+}
+
+.glyphicon-ok{
+     color:white;
+ }
+
+.glyphicon-plus{
+    color:white;
+}
+
+.glyphicon-user{
+    color:white;
+}
+.glyphicon-chevron-left{
+    color : white;
+}
+.glyphicon-eye-open{
+    color: white;
+}
+.glyphicon-play{
+    color: white;
+}
+.Mohsen_item{
+
+    color: black;
+}
+.verticalLine {
+    width:1px;
+    background-color: black;
+    left: 33%;
+    position: absolute;
+    z-index: 5;
+    top:0;
+    bottom: 0;
+}
+
+.drag-mohsen-icons{
+    z-index: 100;
+
+    /*position: relative;*/
+    /*!*padding-top: 0;*!*/
+    /*!*margin-bottom: 5em;*!*/
+    /*left: 0px;*/
+    /*bottom: 0px;*/
+
+}
+a:hover{
+    text-decoration: none;
+}
+
+body {
+    padding-top: 65px;
+    padding-bottom: 30px;
+}
+
+.blue-col{
+    color:dodgerblue;
+}
+
+.up-down-1-border{
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.margin-left-half{
+    margin-left: 0.5em;
+}
+.margin-left-one{
+    margin-left: 1em;
+}
+.margin-left-two{
+    margin-left: 2em;
+}
+
+.padding-bottom-one{
+    padding-bottom: 1em;
+}
+.margin-right-one{
+    margin-right: 1em;
+}
+.margin-right-three{
+    margin-right: 3em;
+}
+
+.padding-top-one{
+    padding-top: 1em;
+}
+.padding-top-tow{
+    padding-top: 2em;
+}
+.padding-top-three{
+    padding-top: 3em;
+}
+
+.navbar-default .navbar-brand,
+.navbar-text a span
+{
+    color: white;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+input.form-control {
+    margin-bottom: 5px;
+}
+
+/*
+.navbar-header {
+    width:100%;
+}
+*/
+
+body {
+    padding-top: 36px;
+    padding-bottom: 56px;
+}
+
+.navbar-default {
+    background-color: #428bca;
+}
