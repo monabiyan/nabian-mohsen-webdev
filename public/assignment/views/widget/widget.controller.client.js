@@ -16,7 +16,16 @@
         vm.checkSafeYouTubeUrl = checkSafeYouTubeUrl;
 
         function init() {
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+
+                var promise=WidgetService.findWidgetsByPageId(vm.pageId);
+                promise
+                    .success(function(widgets){
+                        vm.widgets =widgets;
+                    })
+                    .error(function(bbb)
+                    {
+                        console.log(bbb);
+                    });
         }
         init();
 
@@ -41,15 +50,38 @@
              vm.createWidget = createWidget;
 
              function init() {
-                 vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
+
+                    var promise = WidgetService.findWidgetsByPageId(vm.pid);
+                    promise
+                        .success(function(widgets){
+                            vm.widgets =widgets;
+                        })
+                        .error(function(bbb)
+                        {
+                            console.log(bbb);
+                        });
              }
              init();
 
              function createWidget(widgetType){
-                 vm.wgid = WidgetService.generateWidgetId();
-                 var newWidget = {wgid : vm.wgid, widgetType : widgetType};
-                 WidgetService.createWidget(vm.pid, newWidget);
-                 $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + vm.wgid);
+
+                 var newWidget = { widgetType : widgetType ,pid:vm.pid};
+                 console.log(newWidget)
+                 var promise=WidgetService.createWidget(newWidget);
+                 promise
+                     .success(function(widget){
+                         console.log(widget);
+
+                        widgetNew=widget;
+                         $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + widgetNew._id);
+                     })
+                     .error(function(bbb)
+                     {
+                         console.log(bbb);
+                     });
+
+
+
              }
     }
 
@@ -64,18 +96,52 @@
              vm.deleteWidget = deleteWidget;
 
              function init() {
-                 vm.widgets = WidgetService.findWidgetsByPageId(vm.pid);
-                 vm.widget = WidgetService.findWidgetById(vm.wgid);
+
+                 var promise= WidgetService.findWidgetsByPageId(vm.pid);
+                 promise
+                     .success(function(widgets){
+                         vm.widgets=widgets;
+                     })
+                     .error(function(bbb)
+                     {
+                         console.log(bbb);
+                     });
+
+                 var promise= WidgetService.findWidgetById(vm.wgid);
+                 promise
+                     .success(function(widget){
+                         vm.widget=widget;
+                     })
+                     .error(function(bbb)
+                     {
+                         console.log(bbb);
+                     });
              }
              init();
 
              function updateWidget(){
-                 WidgetService.updateWidget(vm.wgid, vm.widget);
+                 var promise=WidgetService.updateWidget(vm.widget);
+                 promise
+                     .success(function(widget){
+                         console.log(widget);
+                     })
+                     .error(function(bbb)
+                     {
+                         console.log(bbb);
+                     });
                  $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
              }
 
              function deleteWidget(){
-                 WidgetService.deleteWidget(vm.wgid);
+                 var promise = WidgetService.deleteWidget(vm.wgid);
+                 promise
+                     .success(function (widget) {
+                         consloe.log(widget);
+                     })
+                     .error(function(bbb)
+                     {
+                         console.log(bbb);
+                     });
                  $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget");
              }
      }

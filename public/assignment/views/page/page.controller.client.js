@@ -9,13 +9,21 @@
         .controller("EditPageController",EditPageController);
 
 
-    function PageListController($location,PageService,$routeParams)
+    function PageListController(PageService,$routeParams)
     {
         var vm = this;
         vm.userId = parseInt($routeParams['uid']);
         vm.webId = parseInt($routeParams['wid']);
-        vm.pages=PageService.findPagesByWebsiteId(vm.webId)
 
+            var promise =PageService.findPagesByWebsiteId(vm.webId)
+            promise
+                .success(function(pages){
+                    vm.pages=pages;
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
     }
 
 
@@ -29,17 +37,32 @@
 
         function init()
         {
-            vm.pages = PageService.findPagesByWebsiteId(vm.webId);
+
+                var promise = PageService.findPagesByWebsiteId(vm.webId);
+                promise
+                    .success(function (pages) {
+                        vm.pages =pages;
+                    })
+                    .error(function(bbb)
+                    {
+                        console.log(bbb);
+                    });
         }
         init();
 
 
         function createPage()
         {
-            vm.page._id=PageService.generatePageId(vm.pages);
-            console.log(vm.page);
-            // vm.page._id=2;
-            PageService.createPage(vm.webId, vm.page);
+            vm.page.websiteId=vm.webId;
+            var promise=PageService.createPage(vm.webId, vm.page);
+            promise
+                .success(function(page){
+                    console.log(page)
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
         }
     }
 
@@ -51,23 +74,47 @@
         vm.userId = parseInt($routeParams['uid']);
         vm.webId = parseInt($routeParams['wid']);
         vm.pageId=parseInt($routeParams['pid']);
+
         vm.deletePage=deletePage;
         vm.updatePage=updatePage;
 
         function init(){
-            vm.page = PageService.findPageById(vm.pageId);
+                var promise = PageService.findPageById(vm.pageId);
+                promise
+                    .success(function (page) {
+
+                        vm.page =page;
+                    })
+                    .error(function(bbb)
+                    {
+                        console.log(bbb);
+                    });
         }
         init();
 
         function updatePage(){
-            PageService.updatePage(vm.pageId, vm.page);
+            console.log("Starbucks")
+            var promise=PageService.updatePage(vm.page);
+            promise
+                .success(function(page){
+                    console.log(page)
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
         }
 
         function deletePage(pageId) {
-            PageService.deletePage(pageId)
+            var promise=PageService.deletePage(pageId);
+            promise
+                .success(function(page){
+                    console.log(page)
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
         }
-
     }
-
-
 })();

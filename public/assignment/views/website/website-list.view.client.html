@@ -24,6 +24,7 @@
 <ul class="list-group padding-top-three">
     <div class="container">
         <div ng-repeat="website in model.websites">
+
             <li class="list-group-item">
                 <a ng-href="#/user/{{model.userId}}/website/{{website._id}}/page">{{website.name}}</a>
                 <a ng-href="#/user/{{model.userId}}/website/{{website._id}}"><span class="glyphicon glyphicon-cog pull-right"></span>

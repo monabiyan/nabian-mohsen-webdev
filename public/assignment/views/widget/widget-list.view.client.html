@@ -26,7 +26,7 @@
 
     <div class="container padding-top-tow">
         <div ng-repeat="widget in model.widgets" ng-switch="widget.widgetType" >
-            <a href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{model.pageId}}/widget/{{widget.wgid}}" class="pull-right">
+            <a href="#/user/{{model.userId}}/website/{{model.webId}}/page/{{model.pageId}}/widget/{{widget._id}}" class="pull-right">
                 <span class="glyphicon glyphicon-cog"></span>
             </a>
 
@@ -60,7 +60,7 @@
 
 
 
-
+        {{model.widgets}}
 
 
 

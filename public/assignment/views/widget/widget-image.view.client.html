@@ -20,5 +20,14 @@
            ng-model="model.widget.width"
            value="{{model.widget.width}}"/>
 
-    <span class="btn btn-primary btn-block btn-file" id="upload">Upload<input type="file"/></span>
+    <form action="/api/upload"  method="post" enctype="multipart/form-data" id="upload">
+        <input  name="myFile"   type="file" class="form-control"/>
+        <input  name="width"    value="{{model.widget.width}}" style="display: none"/>
+        <input  name="widgetId" value="{{model.widget._id}}"   style="display: none"/>
+        <input  name="redirectUrl" value="/user/{{model.uid}}/website/{{model.wid}}/page/{{model.pid}}/widget" style="display: none"/>
+        <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
+    </form>
 </div>
+{{model.uid}}
+{{model.wid}}
+{{model.pid}}

@@ -12,7 +12,7 @@
                 Edit Page
             </a>
             <p class="navbar-text pull-right">
-                <a ng-model="model.updatePage" ng-href="#/user/{{model.userId}}/website/{{model.webId}}/page" class="navbar-link">
+                <a ng-click="model.updatePage()" ng-href="#/user/{{model.userId}}/website/{{model.webId}}/page" class="navbar-link">
                     <span class="glyphicon glyphicon-ok">
                     </span>
                 </a>
@@ -40,7 +40,7 @@
 
 
 </div>
-
+{{model.page}}
 
 
 <nav class="navbar navbar-default navbar-fixed-bottom navbar-Mohsen-gray">

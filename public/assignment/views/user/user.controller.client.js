@@ -18,48 +18,75 @@
 
         vm.userId = parseInt($routeParams.uid);
 
-        var user = UserService.findUserById(vm.userId);
+        var promise = UserService.findUserById(vm.userId);
+        promise
+            .success(function(user){
+                if(user != '0') {
+                    vm.user = user;
+                    console.log(vm.user)
+                }
+            })
+            .error(function(bbb)
+            {
+                console.log(bbb);
+            });
 
-        if(user != null) {
-            vm.user = user;
-        }
+
+
 
         function update(username, firstname, lastname){
-            var user = UserService.findUserById(vm.userId);
+
             var updatedUser = {
                 username : username,
                 firstname : firstname,
                 lastname : lastname,
-                password : user.password,
-                _id : user._id
+                password : vm.user.password,
+                _id : vm.user._id
             }
-            UserService.updateUser(vm.userId, updatedUser);
+            var promise=UserService.updateUser(vm.userId, updatedUser);
+            promise
+                .success(function(user){
+                    console.log(user)
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
 
         }
 
         function goWebsiteList(){
             $location.url("/user/" + vm.userId + "/website");
         }
-
-
     }
+
+
+
     function LoginController($location, UserService) {
         var vm = this;
         vm.login = login;
 
         function login(username, password) {
 
-            var user = UserService.findUserByCredentials(username, password);
+            var promise = UserService.findUserByCredentials(username, password);
+            promise
+                .success(function(user)
+                    {
+                        if(user =='0')
+                        {
+                            vm.error = "No such user";
+                        }
+                        else {
+                            $location.url("/user/" + user._id);
+                        }
+                    })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
 
-            console.log(user);
 
-            if(user === null)
-            {
-                vm.error = "No such user";
-            }
-            else {
-                $location.url("/user/" + user._id);
-            }
+
         }
     }
     function RegisterController($location,UserService) {
@@ -70,12 +97,21 @@
 
         function register(username, password){
 
-            vm.new_id=user_id;
-            var user_id = UserService.generateUserId();
 
-            UserService.createUser({_id : user_id, username : username, password : password, firstName:"no record",lastName:"no record"});
-            console.log(user_id)
-            $location.url("/user/" + user_id);
+
+            var promise =UserService.createUser({ username : username, password : password, firstName:"norecord",lastName:"norecord"});
+            promise
+                .success(function(user)
+                {
+                    console.log(user._id);
+                    $location.url("/user/" +user._id);
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
+
+
         }
     }
 })();

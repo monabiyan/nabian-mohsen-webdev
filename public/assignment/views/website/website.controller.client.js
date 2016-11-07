@@ -10,7 +10,16 @@
         var vm = this;
 
         vm.userId = parseInt($routeParams['uid']);
-        vm.websites = WebsiteService.findWebsitesByUser(vm.userId);
+        var promise = WebsiteService.findWebsitesByUser(vm.userId);
+        promise
+            .success(function (websites)
+            {
+                vm.websites =websites;
+            })
+            .error(function(bbb)
+            {
+                console.log(bbb);
+            });
     }
 
     function NewWebsiteController($routeParams, WebsiteService, $location) {
@@ -25,18 +34,35 @@
 
         function init()
         {
-            vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
+
+            var promise=WebsiteService.findWebsitesByUser(vm.uid);
+            promise
+                .success(function(websites){
+                    vm.websites =websites;
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
         }
 
         init();
 
         function createWebsite()
         {
-            vm.website._id = WebsiteService.generateWebsiteId();
-            WebsiteService.createWebsite(vm.uid, vm.website);
+            var promise=WebsiteService.createWebsite(vm.uid, vm.website);
+            promise
+                .success(function(website){
+                    console.log(website)
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
             $location.url("/user/" + vm.uid + "/website");
         }
     }
+
     function EditWebsiteController($routeParams, WebsiteService,$location) {
         var vm = this;
         vm.updateWebsite = updateWebsite;
@@ -45,18 +71,53 @@
         vm.uid = parseInt($routeParams.uid);
 
         function init() {
-            vm.website = WebsiteService.findWebsiteById(vm.wid);
-            vm.websites = WebsiteService.findWebsitesByUser(vm.uid);
+
+            var promise = WebsiteService.findWebsiteById(vm.wid);
+            promise
+                .success(function(website){
+                    vm.website=website;
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
+
+
+            var promise = WebsiteService.findWebsitesByUser(vm.uid);
+            promise
+                .success(function(websites){
+                    vm.websites=websites;
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
         }
         init();
 
         function updateWebsite() {
-            WebsiteService.updateWebsite(vm.wid, vm.website);
+            var promise = WebsiteService.updateWebsite(vm.wid, vm.website);
+            promise
+                .success(function(website){
+                    console.log(website)
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
             $location.url("/user/" + vm.uid + "/website");
         }
 
         function deleteWebsite() {
-            WebsiteService.deleteWebsite(vm.wid);
+            var promise = WebsiteService.deleteWebsite(vm.wid);
+            promise
+                .success(function(website){
+                    console.log(website)
+                })
+                .error(function(bbb)
+                {
+                    console.log(bbb);
+                });
             $location.url("/user/" + vm.uid + "/website");
         }
 

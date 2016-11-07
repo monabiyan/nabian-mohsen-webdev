@@ -3,15 +3,14 @@
         .module("WebAppMaker")
         .factory("PageService", PageService);
 
-    function PageService() {
-        var pages = [
-            { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
-            { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
-            { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
-        ];
+    function PageService($http) {
+        // var pages = [
+        //     { "_id": "321", "name": "Post 1", "websiteId": "456", "description": "Lorem" },
+        //     { "_id": "432", "name": "Post 2", "websiteId": "456", "description": "Lorem" },
+        //     { "_id": "543", "name": "Post 3", "websiteId": "456", "description": "Lorem" }
+        // ];
 
         var api = {
-            generatePageId : generatePageId,
             createPage:createPage,
             findPagesByWebsiteId: findPagesByWebsiteId,
             findPageById:findPageById,
@@ -20,63 +19,38 @@
         };
         return api;
 
+        app.post("/api/website/:wid/page", createPage);
 
-
-        function generatePageId(pages){
-            result = 0;
-            if(pages.length > 0){
-
-                result = pages[pages.length - 1]._id + 1;
-                console.log(result);
-            }
-
-            console.log(result);
-            return result;
-        }
-
-
-
-        function createPage(websiteId, page)
+        function createPage(wid, page)
         {
-            page.websiteId = websiteId;
-            pages.push(page);
+            var url="/api/website/"+wid+"/page";
+            return $http.post(url,page);
         }
 
 
 
-        function findPagesByWebsiteId(websiteId){
-            result = []
-            for(i = 0; i < pages.length; i++){
-                if(pages[i].websiteId == websiteId){
-                    result.push(pages[i]);
-                }
-            }
-            return result;
+        function findPagesByWebsiteId(wid){
+            var url = "/api/website/" + wid + "/page";
+            return $http.get(url);
         }
 
 
         function findPageById(pageId){
-            for(i = 0; i < pages.length; i++){
-                if(pages[i]._id == pageId){
-                    return pages[i];
-                }
-            }
+            var url = "/api/page/" + pageId;
+            return $http.get(url);
         }
 
 
-        function updatePage(pageId, page){
-            for(i = 0; i < pages.length; i++){
-                if(pages[i]._id == pageId){
-                    pages[i] = page;
-                }
-            }
+        function updatePage(page){
+            console.log("HIIIIII")
+            var url = "/api/page/" + page._id;
+            return $http.put(url, page);
         }
 
 
         function deletePage(pageId){
-            pages = pages.filter(function(item) {
-                return item._id != pageId;
-            })
+            var url = "/api/page/" + pageId;
+            return $http.delete(url);
         }
 
     }
