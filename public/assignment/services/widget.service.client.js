@@ -23,6 +23,7 @@
             findWidgetById : findWidgetById,
             updateWidget : updateWidget,
             deleteWidget : deleteWidget,
+            sort : sort
         }
 
         return api;
@@ -51,6 +52,11 @@
         function deleteWidget(wgid){
             var url = "/api/widget/" + wgid;
             return $http.delete(url);
+        }
+
+        function sort(pid, start, end){
+            var url = "/api/page/" + pid + "/widget/?start=" + start +"&end=" + end;
+            $http.put(url);
         }
     }
 })();

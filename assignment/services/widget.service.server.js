@@ -28,7 +28,7 @@ module.exports = function(app) {
     app.put("/api/widget/:wgid", updateWidget);
     app.delete("/api/widget/:wgid", deleteWidget);
     app.post ("/api/upload", upload.single('myFile'), uploadImage);
-
+    app.put("/api/page/:pid/widget", sortWidgets)
 
 
 
@@ -117,6 +117,29 @@ module.exports = function(app) {
         }
 
     }
+
+    function sortWidgets(req,res)
+    {
+        var pid = req.params.pid;
+        var start = req.query.start;
+        var end = req.query.end;
+        var afterStart = getIndex(pid,start);
+        var afterEnd = getIndex(pid,end);
+        widgets.splice(afterEnd, 0, widgets.splice(afterStart,1)[0]);
+        res.send('0');
+    }
+
+    function getIndex(pid,i){
+        indices = [];
+        for(var w in widgets){
+            if(widgets[w].pid == pid){
+                indices.push(w);
+            }
+        }
+        return indices[i];
+    }
+
+
 
 
 
