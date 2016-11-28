@@ -64,23 +64,25 @@
              init();
 
              function createWidget(widgetType){
+                 console.log(widgetType);
 
-                 var newWidget = { widgetType : widgetType ,pid:vm.pid};
-                 console.log(newWidget)
+                 var newWidget = { type : widgetType ,_page:vm.pid};
+                 console.log(newWidget);
                  var promise=WidgetService.createWidget(newWidget);
                  promise
                      .success(function(widget){
-                         console.log(widget);
 
-                        widgetNew=widget;
-                         $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + vm.pid + "/widget/" + widgetNew._id);
+                         console.log('hassan');
+                         console.log(widget);
+                         console.log('hossein');
+
+
+                         $location.url("/user/" + vm.uid + "/website/" + vm.wid + "/page/" + widget._page + "/widget/" + widget._id);
                      })
                      .error(function(bbb)
                      {
                          console.log(bbb);
                      });
-
-
 
              }
     }
@@ -119,8 +121,8 @@
              }
              init();
 
-             function updateWidget(){
-                 var promise=WidgetService.updateWidget(vm.widget);
+             function updateWidget(widget){
+                 var promise=WidgetService.updateWidget(widget);
                  promise
                      .success(function(widget){
                          console.log(widget);

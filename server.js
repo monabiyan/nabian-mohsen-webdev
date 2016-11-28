@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 // configure a public directory to host static content
 app.use(express.static(__dirname + '/public'));
 
-require ("./test/app.js")(app);
+//require ("./test/app.js")(app);
 
 
 //access to app.js in the assignment file which handles server services.

@@ -1,20 +1,20 @@
 /**
  * Created by mohsennabian on 10/31/16.
  */
-module.exports = function(app) {
+module.exports = function(app,model) {
 
 
-    var widgets = [
-        { _id: "123", widgetType: "HEADER", pid: 321, size: 2, text: "GIZMODO"},
-        { _id: "234", widgetType: "HEADER", pid: 321, size: 4, text: "Lorem ipsum"},
-        { _id: "345", widgetType: "IMAGE", pid: 321, width: "100%",
-            url: "http://lorempixel.com/400/300/"},
-        { _id: "456", widgetType: "HTML", pid: 321, text: "<p>Lorem ipsum</p>"},
-        { _id: "567", widgetType: "HEADER", pid: 321, size: 4, text: "Lorem ipsum"},
-        { _id: "678", widgetType: "YOUTUBE", pid: 321, width: "100%",
-            url: "https://youtu.be/AM2Ivdi9c4E" },
-        { _id: "789", widgetType: "HTML", pid: 321, text: "<p>Lorem ipsum</p>"}
-    ];
+    // var widgets = [
+    //     { _id: "123", widgetType: "HEADER", pid: 321, size: 2, text: "GIZMODO"},
+    //     { _id: "234", widgetType: "HEADER", pid: 321, size: 4, text: "Lorem ipsum"},
+    //     { _id: "345", widgetType: "IMAGE", pid: 321, width: "100%",
+    //         url: "http://lorempixel.com/400/300/"},
+    //     { _id: "456", widgetType: "HTML", pid: 321, text: "<p>Lorem ipsum</p>"},
+    //     { _id: "567", widgetType: "HEADER", pid: 321, size: 4, text: "Lorem ipsum"},
+    //     { _id: "678", widgetType: "YOUTUBE", pid: 321, width: "100%",
+    //         url: "https://youtu.be/AM2Ivdi9c4E" },
+    //     { _id: "789", widgetType: "HTML", pid: 321, text: "<p>Lorem ipsum</p>"}
+    // ];
 
 
 
@@ -33,65 +33,38 @@ module.exports = function(app) {
 
 
 
-    function createWidget(req,res){
-
+    function createWidget(req,res)
+    {
         var widget=req.body;
-        widget._id = (new Date()).getTime();
-
-        widgets.push(widget);
-        res.send(widget);
+        var pageId=req.params.pid;
+        console.log(widget);
+        model.widgetModel.createWidget(pageId, widget).then(function(widget){res.json(widget);});
     }
 
     function findWidgetsByPageId(req,res){
-        var params=req.params;
-        pageId=params.pid;
-        var result = [];
-        for (u in widgets)
-        {
-            if (widgets[u].pid==pageId)
-            {
-                result.push(widgets[u]);
+        var pageId=req.params.pid;
+        console.log(pageId);
+        model.widgetModel.findAllWidgetsForPage(pageId).then(function(PageObj){res.send(PageObj.widgets);});
 
-            }
-        }
-        res.send(result);
     }
 
     function findWidgetById(req,res){
-        var params=req.params;
-        var id=params.wgid;
-        var result = {};
-        for (u in widgets)
-        {
-            if (widgets[u]._id==id)
-            {
-                result=widgets[u];
-                break;
-            }
-        }
-        res.send(result);
+        var widgetId=req.params.wgid;
+        model.widgetModel.findWidgetById(widgetId).then(function(widget){res.json(widget);});
     }
 
     function updateWidget(req,res){
         var widget=req.body;
-        var id=widget._id;
-        for (var u in widgets)
-        {
-            if (widgets[u]._id==id){
-                widgets[u]=widget;
-                break;
-            }
-        }
-        res.send(widget);
+        var widgetId=widget._id;
+        model.widgetModel.updateWidget(widgetId, widget).then(function(widget){res.json(widget);});
+
     }
 
     function deleteWidget(req,res){
         var wgid = req.params.wgid;
-        widgets = widgets.filter(function(item) {
-            return item._id != wgid;
-        });
-        res.send(wgid);
+        model.widgetModel.deleteWidget(wgid).then(function(widget){res.json(widget);});
     }
+
 
     function uploadImage(req,res) {
 
@@ -138,10 +111,5 @@ module.exports = function(app) {
         }
         return indices[i];
     }
-
-
-
-
-
 
 };

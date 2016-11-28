@@ -12,12 +12,14 @@
     function PageListController(PageService,$routeParams)
     {
         var vm = this;
-        vm.userId = parseInt($routeParams['uid']);
-        vm.webId = parseInt($routeParams['wid']);
-
-            var promise =PageService.findPagesByWebsiteId(vm.webId)
+        vm.userId = ($routeParams['uid']);
+        vm.webId = ($routeParams['wid']);
+        console.log(vm.userId);
+            var promise =PageService.findPagesByWebsiteId(vm.webId);
             promise
                 .success(function(pages){
+                    console.log('hhhhhh');
+                    console.log(pages);
                     vm.pages=pages;
                 })
                 .error(function(bbb)
@@ -31,8 +33,9 @@
     function NewPageController($location,PageService,$routeParams)
     {
         var vm = this;
-        vm.userId = parseInt($routeParams['uid']);
-        vm.webId = parseInt($routeParams['wid']);
+        vm.userId = ($routeParams['uid']);
+        console.log(vm.userId);
+        vm.webId = ($routeParams['wid']);
         vm.createPage=createPage;
 
         function init()
@@ -40,8 +43,9 @@
 
                 var promise = PageService.findPagesByWebsiteId(vm.webId);
                 promise
-                    .success(function (pages) {
-                        vm.pages =pages;
+                    .success(function (website) {
+                        vm.pages =website.pages;
+
                     })
                     .error(function(bbb)
                     {
@@ -57,6 +61,7 @@
             var promise=PageService.createPage(vm.webId, vm.page);
             promise
                 .success(function(page){
+                    $location.url("/user/" + vm.userId + "/website/"+vm.webId+"/page");
                     console.log(page)
                 })
                 .error(function(bbb)
@@ -71,9 +76,9 @@
     function EditPageController(PageService,$routeParams)
     {
         var vm = this;
-        vm.userId = parseInt($routeParams['uid']);
-        vm.webId = parseInt($routeParams['wid']);
-        vm.pageId=parseInt($routeParams['pid']);
+        vm.userId = ($routeParams['uid']);
+        vm.webId = ($routeParams['wid']);
+        vm.pageId=($routeParams['pid']);
 
         vm.deletePage=deletePage;
         vm.updatePage=updatePage;

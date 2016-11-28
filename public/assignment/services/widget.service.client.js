@@ -29,13 +29,15 @@
         return api;
 
         function createWidget(widget){
-            console.log(widget)
-            var url = "/api/page/" + widget.pid + "/widget";
+
+            var url = "/api/page/" + widget._page + "/widget";
+            console.log(url);
             return $http.post(url, widget);
         }
 
         function findWidgetsByPageId(pid){
             var url = "/api/page/" + pid + "/widget";
+            console.log(url);
             return $http.get(url);
         }
 
@@ -56,7 +58,7 @@
 
         function sort(pid, start, end){
             var url = "/api/page/" + pid + "/widget/?start=" + start +"&end=" + end;
-            $http.put(url);
+            return $http.put(url);
         }
     }
 })();

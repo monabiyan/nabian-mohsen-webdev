@@ -23,6 +23,7 @@
 
 <ul class="list-group padding-top-three">
     <div class="container">
+        {{model}}
         <div ng-repeat="website in model.websites">
 
             <li class="list-group-item">
@@ -41,7 +42,6 @@
             <p class="navbar-text pull-right" >
                 <a ng-href="#/user/{{model.userId}}" class="navbar-link">
                         <span class="glyphicon glyphicon-user">
-
                         </span>
                 </a>
             </p>

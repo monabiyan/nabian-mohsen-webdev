@@ -27,7 +27,7 @@
                 <a class="navbar-brand"  style="margin-left: 2em">
                     New Website
                 </a>
-                {{model}}
+
                 <div class="navbar-text pull-right">
                     <a ng-click="model.createWebsite()" class="navbar-link">
                         <span class="glyphicon glyphicon-ok">
@@ -39,7 +39,7 @@
     </div>
 </nav>
 
-
+{{model}}
 
 <div class="container-fluid padding-top-three">
     <div class="row">
@@ -64,7 +64,7 @@
                 <div class="form-group">
                     <label for="Descripton">Description</label>
 
-                    <textarea class="form-control text-left" rows="10" id="Descripton" placeholder="Website Description">
+                    <textarea ng-model="model.website.description" class="form-control text-left" rows="10" id="Descripton" placeholder="Website Description">
 
                     </textarea>
                 </div>

@@ -9,17 +9,19 @@
     function WebsiteListController($routeParams, WebsiteService) {
         var vm = this;
 
-        vm.userId = parseInt($routeParams['uid']);
+        vm.userId = ($routeParams['uid']);
         var promise = WebsiteService.findWebsitesByUser(vm.userId);
         promise
             .success(function (websites)
             {
                 vm.websites =websites;
+
             })
             .error(function(bbb)
             {
                 console.log(bbb);
             });
+
     }
 
     function NewWebsiteController($routeParams, WebsiteService, $location) {
@@ -29,7 +31,7 @@
 
         vm.createWebsite = createWebsite;
 
-        vm.uid = parseInt($routeParams.uid);
+        vm.uid = ($routeParams.uid);
 
 
         function init()
@@ -37,8 +39,8 @@
 
             var promise=WebsiteService.findWebsitesByUser(vm.uid);
             promise
-                .success(function(websites){
-                    vm.websites =websites;
+                .success(function(user){
+                    vm.websites =user.websites;
                 })
                 .error(function(bbb)
                 {
@@ -67,8 +69,8 @@
         var vm = this;
         vm.updateWebsite = updateWebsite;
         vm.deleteWebsite = deleteWebsite;
-        vm.wid = parseInt($routeParams.wid);
-        vm.uid = parseInt($routeParams.uid);
+        vm.wid = ($routeParams.wid);
+        vm.uid = ($routeParams.uid);
 
         function init() {
 
@@ -76,6 +78,7 @@
             promise
                 .success(function(website){
                     vm.website=website;
+                    console.log(website);
                 })
                 .error(function(bbb)
                 {
@@ -85,8 +88,8 @@
 
             var promise = WebsiteService.findWebsitesByUser(vm.uid);
             promise
-                .success(function(websites){
-                    vm.websites=websites;
+                .success(function(user){
+                    vm.websites=user.websites;
                 })
                 .error(function(bbb)
                 {
@@ -113,12 +116,13 @@
             promise
                 .success(function(website){
                     console.log(website)
+                    $location.url("/user/" + vm.uid + "/website");
                 })
                 .error(function(bbb)
                 {
                     console.log(bbb);
                 });
-            $location.url("/user/" + vm.uid + "/website");
+
         }
 
 

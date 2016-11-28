@@ -19,7 +19,7 @@
         };
         return api;
 
-        app.post("/api/website/:wid/page", createPage);
+
 
         function createPage(wid, page)
         {
@@ -42,7 +42,6 @@
 
 
         function updatePage(page){
-            console.log("HIIIIII")
             var url = "/api/page/" + page._id;
             return $http.put(url, page);
         }

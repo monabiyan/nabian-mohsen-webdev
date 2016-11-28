@@ -16,7 +16,7 @@
 
 
 
-        vm.userId = parseInt($routeParams.uid);
+        vm.userId = $routeParams.uid;
 
         var promise = UserService.findUserById(vm.userId);
         promise
@@ -38,15 +38,15 @@
 
             var updatedUser = {
                 username : username,
-                firstname : firstname,
-                lastname : lastname,
-                password : vm.user.password,
-                _id : vm.user._id
+                firstName : firstname,
+                lastName : lastname,
+                password : vm.user.password
             }
+            console.log(updatedUser);
             var promise=UserService.updateUser(vm.userId, updatedUser);
             promise
                 .success(function(user){
-                    console.log(user)
+
                 })
                 .error(function(bbb)
                 {
