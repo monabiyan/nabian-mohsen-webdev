@@ -27,8 +27,8 @@ module.exports = function(app,model) {
     app.get("/api/widget/:wgid", findWidgetById);
     app.put("/api/widget/:wgid", updateWidget);
     app.delete("/api/widget/:wgid", deleteWidget);
-    app.post ("/api/upload", upload.single('myFile'), uploadImage);
-    app.put("/api/page/:pid/widget", sortWidgets)
+    app.post ("/api/upload", upload.single('myFile'), uploadImage),
+    app.put("/api/page/:pid/widget", sortWidgets);
 
 
 
@@ -80,29 +80,56 @@ module.exports = function(app,model) {
         var size          = myFile.size;
         var mimetype      = myFile.mimetype;
 
-        for(w in widgets){
-            if(widgets[w]._id == wgid){
-                widgets[w].url = "../uploads/" + filename;
-                widgets[w].width = width;
-                res.redirect("../../assignment/#" + redirectUrl);
-                break;
-            }
-        }
+        model.widgetModel
+            .findWidgetById(wgid)
+            .then(
+                function(widget){
+                    widget.url = "../uploads/" + filename;
+                    widget.width = width;
+                    widget.size = size;
+                    model.widgetModel
+                        .updateWidget(wgid, widget)
+                        .then(
+                            function(){
+                                res.redirect("../../assignment/#" + redirectUrl);
+                            },
+                            function(err){
+                                console.log(err)
+                            }
+                        )
+                },
+                function(err){
+                    console.log(err);
+                });
 
     }
 
-    function sortWidgets(req,res)
-    {
+    function sortWidgets(req,res){
         var pid = req.params.pid;
-        var start = req.query.start;
-        var end = req.query.end;
-        var afterStart = getIndex(pid,start);
-        var afterEnd = getIndex(pid,end);
-        widgets.splice(afterEnd, 0, widgets.splice(afterStart,1)[0]);
-        res.send('0');
+        var initial = req.query.intial;
+        var final = req.query.final;
+        model.pageModel.findPageById(pid)
+            .then(
+                function(page){
+                    page.widgets.splice(final, 0, page.widgets.splice(initial,1)[0]);
+                    model.pageModel.updatePage(pid,page)
+                        .then(
+                            function(page){
+                                res.sendStatus(200);
+                            },
+                            function(error){
+                                console.log(error);
+                                res.sendStatus(400).send(error);
+                            }
+                        )
+                },
+                function(err){
+                    console.log(error);
+                    res.sendStatus(400).send(error);
+                })
     }
 
-    function getIndex(pid,i){
+    function getIndexOf(pid,i){
         indices = [];
         for(var w in widgets){
             if(widgets[w].pid == pid){

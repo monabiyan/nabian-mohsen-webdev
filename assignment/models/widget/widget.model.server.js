@@ -73,7 +73,7 @@ module.exports = function () {
                 url: widget.url,
                 width: widget.width,
                 height: widget.height,
-                // row: widget.row,
+                rows: widget.rows,
                 size: widget.size,
                 class: widget.class,
                 icon: widget.icon,
