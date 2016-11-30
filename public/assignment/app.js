@@ -1,3 +1,3 @@
 (function (){ // IIFE
-    angular.module("WebAppMaker", ["ngRoute","utility"]);
+    angular.module("WebAppMaker", ["ngRoute","widgetDirectives","textAngular"]);
 })();

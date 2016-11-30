@@ -4,11 +4,10 @@
 
 (function(){
     angular
-        .module("utility",[])
-        .directive("sortable", sortable);
+        .module("widgetDirectives",[])
+        .directive("widgetSortable", widgetSortable);
 
-    function sortable(){
-
+    function widgetSortable(){
         function linker(scope, element, attrb) {
             var initial = -1;
             var final = -1;
@@ -37,6 +36,7 @@
 
     function sortableController(WidgetService){
         var vm = this;
+
         vm.sort = sort;
 
         function sort(pid,initial, final){

@@ -44,6 +44,9 @@
             <input ng-model="model.widget.formatted" type="checkbox"/>
         </div>
     </div>
+    <div ng-switch-when="HTML">
+        <ng-include src="'views/widget/widget-html.view.client.html'"></ng-include>
+    </div>
 
 
 
