@@ -73,8 +73,42 @@
                 controller: "EditWidgetController",
                 controllerAs: "model"
             })
+
+
+            /////////////////////////////  Passport Implementation start
+            .when ("/user", {
+                templateUrl: "views/user/profile.view.client.html",
+                controller: "ProfileController",
+                controllerAs: "model",
+                resolve: { loggedin: checkLoggedin }
+            })
+            /////////////////////////////  Passport Implementation finish
+
+
+
             .otherwise({
                 redirectTo: "/login"
             });
     }
+
+
+
+    /////////////////////////////  Passport Implementation start
+    var checkLoggedin = function($q, $timeout, $http, $location, $rootScope) {
+        var deferred = $q.defer();
+        $http.get('/api/loggedin').success(function(user) {
+            $rootScope.errorMessage = null;
+            if (user !== '0') {
+                $rootScope.currentUser = user;
+                deferred.resolve();
+            } else {
+                deferred.reject();
+                $location.url('/');
+            }
+        });
+        return deferred.promise;
+    };
+    /////////////////////////////  Passport Implementation finish
+
+
 })();

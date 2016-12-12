@@ -1,21 +1,37 @@
 <div class="container">
     <h1>Register</h1>
-    <input type="text"
-           class="form-control"
-           placeholder="username"
-           ng-model="model.user.username"/>
-    <input type="password"
-           class="form-control"
-           placeholder="password"
-           ng-model="model.user.password"/>
-    <input type="password"
-           class="form-control"
-           placeholder="very password"
-           ng-model="model.user.verifypassword"/>
 
 
-    <a class="btn btn-primary btn-block" ng-click="model.register(model.user.username, model.user.password)">
-    Register</a>
+    <div ng-show="model.error1" class="alert alert-danger" role="alert">
+        <p> Username or Password is empty</p>
+    </div>
+
+    <div ng-show="model.error2" class="alert alert-danger" role="alert">
+        <p> password verification doesn't match </p>
+    </div>
+    <form name="form1" nonvalidate>
+        <input type="text"
+               class="form-control"
+               name="username"
+               required
+               placeholder="username"
+               ng-model="model.user.username"/>
+        <input type="password"
+               class="form-control"
+               name="password"
+               required
+               placeholder="password"
+               ng-model="model.user.password"/>
+        <input type="password"
+               name="v-password"
+               class="form-control"
+               required
+               placeholder="very password"
+               ng-model="model.user.verifypassword"/>
+
+                <a class="btn btn-primary btn-block" ng-click="model.register(model.user.username, model.user.password,model.user.verifypassword)">
+                Register</a>
+    </form>
     <a class="btn btn-danger  btn-block"
        href="#/login">Cancel</a>
 

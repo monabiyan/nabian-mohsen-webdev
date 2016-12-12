@@ -1,4 +1,7 @@
 <div class="container padding-top-three">
+    <div ng-show="model.error1" class="alert alert-danger" role="alert">
+        <p> Widget Name is empty</p>
+    </div>
     <label for="name">Name</label>
     <input type="text"
            ng-model="model.widget.name"

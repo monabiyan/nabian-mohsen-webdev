@@ -32,6 +32,7 @@
 
     function NewPageController($location,PageService,$routeParams)
     {
+
         var vm = this;
         vm.userId = ($routeParams['uid']);
         console.log(vm.userId);
@@ -57,6 +58,10 @@
 
         function createPage()
         {
+            if (vm.page.name==null){
+                vm.error1=true;
+                return('0')
+            }
             vm.page.websiteId=vm.webId;
             var promise=PageService.createPage(vm.webId, vm.page);
             promise
@@ -98,6 +103,11 @@
         init();
 
         function updatePage(){
+
+            if (vm.page.name==null){
+                vm.error1=true;
+                return('0')
+            }
             console.log("Starbucks")
             var promise=PageService.updatePage(vm.page);
             promise
@@ -111,6 +121,12 @@
         }
 
         function deletePage(pageId) {
+
+            if (vm.page.name==null){
+                vm.error1=true;
+                return('0')
+            }
+
             var promise=PageService.deletePage(pageId);
             promise
                 .success(function(page){

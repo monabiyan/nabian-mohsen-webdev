@@ -17,6 +17,7 @@ module.exports = function () {
         findWebsitesForUser: findWebsitesForUser,
         updateUser: updateUser,
         removeUser: removeUser,
+        findUserByFacebookId: findUserByFacebookId,  ///for facebook login
         setModel: setModel
     };
 
@@ -83,5 +84,10 @@ module.exports = function () {
 
         return UserModel.create(user);
     }
+
+    function findUserByFacebookId(facebookId) {
+        return UserModel.findOne({'facebook.id': facebookId});
+    }
+
 
 };

@@ -22,7 +22,10 @@
 </nav>
 
 
-<div class="container padding-top-three">    
+<div class="container padding-top-three">
+    <div ng-show="model.error1" class="alert alert-danger" role="alert">
+        <p> Page Name is empty</p>
+    </div>
     <form>
         <div class="form-group">
             <label for="name">Name</label>

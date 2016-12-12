@@ -52,6 +52,10 @@
 
         function createWebsite()
         {
+            if (vm.website.name==null){
+                vm.error1=true;
+                return('0')
+            }
             var promise=WebsiteService.createWebsite(vm.uid, vm.website);
             promise
                 .success(function(website){
@@ -99,6 +103,11 @@
         init();
 
         function updateWebsite() {
+
+            if (vm.website.name==null){
+                vm.error1=true;
+                return('0')
+            }
             var promise = WebsiteService.updateWebsite(vm.wid, vm.website);
             promise
                 .success(function(website){
@@ -112,6 +121,10 @@
         }
 
         function deleteWebsite() {
+            if (vm.website.name==null){
+                vm.error1=true;
+                return('0')
+            }
             var promise = WebsiteService.deleteWebsite(vm.wid);
             promise
                 .success(function(website){

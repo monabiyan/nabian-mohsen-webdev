@@ -13,7 +13,12 @@ module.exports = function() {
         phone:String,
         dateCreated : {type:Date,ref:Date.now()},
         // role: {type: String, enum: ['ADMIN', 'STUDENT', 'FACULTY']},
-        websites: [{type: mongoose.Schema.Types.ObjectId, ref:'WebsiteModel'}]
+        websites: [{type: mongoose.Schema.Types.ObjectId, ref:'WebsiteModel'}],
+        facebook: {
+            id:    String,
+            token: String
+        }
+
         // websites: [WebsiteSchema],
     }, {collection: "user"});
     return UserSchema;

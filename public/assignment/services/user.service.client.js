@@ -21,7 +21,11 @@
             createUser:createUser,
             findUserByUsername:findUserByUsername,
             updateUser:updateUser,
-            deleteUser:deleteUser
+            deleteUser:deleteUser,
+            login: login,
+            logout: logout,  // for passport
+            register: register  // for passport
+
 
         };
         return api;
@@ -60,6 +64,23 @@
             var url = "/apu/user/" + uid;
             return $http.delete(url);
         }
+
+        ////////////////////////////  Passport Implementation
+
+        function login(user) {
+            console.log(user);
+            return $http.post("/api/login", user);
+        }
+
+        function logout(user) {
+            return $http.post("/api/logout");
+        }
+
+        function register(user) {
+            return $http.post("/api/register", user);
+        }
+
+        ////////////////////////////  Passport Implementation
 
     }
 })();

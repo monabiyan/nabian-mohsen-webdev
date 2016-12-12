@@ -55,7 +55,11 @@
             </ul>
         </div>
         <div class="col-xs-12 col-sm-8">
-            <form >
+
+            <div ng-show="model.error1" class="alert alert-danger" role="alert">
+                <p> Website Name is empty</p>
+            </div>
+            <form  name="form1">
                 <div class="form-group">
                     <label for="Name">Website Name</label>
                     <input ng-model="model.website.name" class="form-control" id="Name" placeholder="Blogger">
@@ -69,12 +73,16 @@
 
                     </textarea>
                 </div>
+
+                <a class="btn btn-danger btn-block"
+                   href="website-list.html" ng-click="model.deleteWebsite()"> Delete
+                </a>
             </form>
-            <a class="btn btn-danger btn-block"
-               href="website-list.html" ng-click="model.deleteWebsite()"> Delete </a>
+
         </div>
 
     </div>
+</div>
 
 
 
@@ -83,8 +91,7 @@
         <div class="container">
             <p class="navbar-text pull-right" >
                 <a ng-href="#/user/{{model.uid}}" class="navbar-link">
-                        <span class="glyphicon glyphicon-user">
-                        </span>
+                        <span class="glyphicon glyphicon-user"></span>
                 </a>
             </p>
         </div>

@@ -64,6 +64,7 @@
              init();
 
              function createWidget(widgetType){
+
                  console.log(widgetType);
 
                  var newWidget = { type : widgetType ,_page:vm.pid};
@@ -122,6 +123,7 @@
              init();
 
              function updateWidget(widget){
+
                  var promise=WidgetService.updateWidget(widget);
                  promise
                      .success(function(widget){
@@ -135,6 +137,7 @@
              }
 
              function deleteWidget(){
+
                  var promise = WidgetService.deleteWidget(vm.wgid);
                  promise
                      .success(function (widget) {
